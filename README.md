@@ -1,1 +1,1 @@
-# Daily Prebuilt + Svelte
+# Prebuilt UI demo (Svelte)
