@@ -1,9 +1,14 @@
 <script>
-  import { onMount } from "svelte";
+  import { onMount, createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
+
+  import Controls from "../components/Controls.svelte";
 
   let callFrame;
   export let url = "https://jessmitch.daily.co/hey";
   export let userName;
+  let meetingState = "idle";
 
   const IFRAME_OPTIONS = {
     height: "auto",
@@ -15,7 +20,17 @@
     borderRadius: "4px",
   };
 
-  const initializeDaily = () => {
+  const updateMeetingState = (e) => {
+    console.log(e);
+    meetingState = e.action;
+  };
+
+  const handleLeftMeeting = (e) => {
+    updateMeetingState(e);
+    dispatch("left");
+  };
+
+  const initializeDaily = async () => {
     // select container element to embed Daily iframe in
     const container = document.getElementById("container");
     // create Daily iframe
@@ -25,8 +40,17 @@
       url,
       userName,
     });
+
+    callFrame.on("joining-meeting", updateMeetingState);
+    callFrame.on("joined-meeting", updateMeetingState);
+    callFrame.on("left-meeting", handleLeftMeeting);
+    callFrame.on("error", updateMeetingState);
+    // callFrame.on("active-speaker-change", updateMeetingState);
+    // callFrame.on("participant-joined", updateMeetingState);
     // let the local user join the call, which will cause the call to be displayed in our app UI
-    callFrame.join();
+    callFrame.join().then((e) => {
+      console.log(e);
+    });
   };
 
   onMount(() => {
@@ -37,10 +61,22 @@
 
 <div class="call-screen">
   <div id="container" />
+  {#if meetingState === "joined-meeting"}
+    <Controls {url} />
+  {/if}
 </div>
 
 <style>
   .call-screen {
     padding: 1rem;
+    display: flex;
+    max-width: 1200px;
+    margin: auto;
+  }
+  #container {
+    flex: 1.5;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
   }
 </style>

@@ -6,10 +6,13 @@
   let currentScreen = "home"; //  || 'call'
   let url, userName;
 
-  const updateScreen = ({ detail }) => {
+  const handleJoinCall = ({ detail }) => {
     currentScreen = "call";
     url = detail.url;
     userName = detail.name;
+  };
+  const handleLeaveCall = () => {
+    currentScreen = "home";
   };
 </script>
 
@@ -20,11 +23,15 @@
 <div class="wrapper">
   <Header />
   {#if currentScreen === "home"}
-    <Home on:submit={updateScreen} />
+    <Home on:submit={handleJoinCall} />
   {:else}
-    <Call {userName} {url} />
+    <Call {userName} {url} on:left={handleLeaveCall} />
   {/if}
 </div>
 
 <style>
+  .wrapper {
+    background-color: var(--grey-lightest);
+    height: 100vh;
+  }
 </style>

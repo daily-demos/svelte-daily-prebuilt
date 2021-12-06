@@ -32,6 +32,7 @@
     align-items: center;
     border-bottom: 1px solid #c8d1dc;
     padding: 1rem;
+    background-color: var(--white);
   }
   .header-section {
     display: flex;
