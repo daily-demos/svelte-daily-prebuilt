@@ -33,5 +33,7 @@
   .wrapper {
     background-color: var(--grey-lightest);
     height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 </style>

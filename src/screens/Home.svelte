@@ -37,7 +37,6 @@
   .home-screen {
     padding: 0 1rem;
     width: 100%;
-    height: calc(100vh - 60px); /* subtract header height*/
     max-width: 600px;
     display: flex;
     flex-direction: column;
