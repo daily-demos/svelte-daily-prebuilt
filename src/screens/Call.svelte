@@ -20,6 +20,10 @@
     borderRadius: "4px",
   };
 
+  const logError = (e) => {
+    console.error("Something is not right. ", e);
+  };
+
   const updateMeetingState = (e) => {
     console.log(e);
     meetingState = e.action;
@@ -28,6 +32,58 @@
   const handleLeftMeeting = (e) => {
     updateMeetingState(e);
     dispatch("left");
+  };
+
+  const toggleCamera = () => {
+    if (!callFrame) {
+      logError("Callframe does not exist.");
+      return;
+    }
+    const localVideo = callFrame.localVideo();
+    callFrame.setLocalVideo(!localVideo);
+  };
+  const toggleMic = () => {
+    if (!callFrame) {
+      logError("Callframe does not exist.");
+      return;
+    }
+    const localVideo = callFrame.localAudio();
+    callFrame.setLocalAudio(!localVideo);
+  };
+  const toggleScreenShare = () => {
+    if (!callFrame) {
+      logError("Callframe does not exist.");
+      return;
+    }
+    const participants = callFrame.participants();
+    // stop the screen share if they're currently sharing
+    // otherwise, start the start share
+    participants?.local?.screen
+      ? callFrame.stopScreenShare()
+      : callFrame.startScreenShare();
+  };
+  const goFullscreen = () => {
+    if (!callFrame) {
+      logError("Callframe does not exist.");
+      return;
+    }
+    callFrame.requestFullscreen();
+  };
+  const toggleLocalVideo = () => {
+    if (!callFrame) {
+      logError("Callframe does not exist.");
+      return;
+    }
+    const shown = callFrame.showLocalVideo();
+    callFrame.setShowLocalVideo(!shown);
+  };
+  const togglRemoteVideo = () => {
+    if (!callFrame) {
+      logError("Callframe does not exist.");
+      return;
+    }
+    const shown = callFrame.showParticipantsBar();
+    callFrame.setShowParticipantsBar(!shown);
   };
 
   const initializeDaily = async () => {
@@ -48,9 +104,12 @@
     // callFrame.on("active-speaker-change", updateMeetingState);
     // callFrame.on("participant-joined", updateMeetingState);
     // let the local user join the call, which will cause the call to be displayed in our app UI
-    callFrame.join().then((e) => {
-      console.log(e);
-    });
+    callFrame
+      .join()
+      .then((e) => {
+        console.log(e);
+      })
+      .catch((e) => console.error("Error joining call: ", e));
   };
 
   onMount(() => {
@@ -59,11 +118,22 @@
   });
 </script>
 
-<div class="call-screen">
+<div
+  class={meetingState === "joined-meeting"
+    ? "call-screen"
+    : "call-screen prejoin"}
+>
   <div id="container" />
-  {#if meetingState === "joined-meeting"}
-    <Controls {url} />
-  {/if}
+  <Controls
+    {url}
+    {meetingState}
+    on:toggle-camera={toggleCamera}
+    on:toggle-mic={toggleMic}
+    on:toggle-screen-share={toggleScreenShare}
+    on:fullscreen={goFullscreen}
+    on:toggle-local-video={toggleLocalVideo}
+    on:toggle-remote-video={togglRemoteVideo}
+  />
 </div>
 
 <style>
@@ -72,6 +142,10 @@
     display: flex;
     max-width: 1200px;
     margin: auto;
+    width: 100%;
+  }
+  .prejoin {
+    flex-direction: column;
   }
   #container {
     flex: 1.5;
