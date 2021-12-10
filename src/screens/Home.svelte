@@ -1,9 +1,17 @@
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onMount } from "svelte";
 
   const dispatch = createEventDispatcher();
 
   let name, url;
+
+  onMount(() => {
+    const storedUrl = localStorage.getItem("svelte-prebuilt-url");
+    if (storedUrl) {
+      url = storedUrl;
+    }
+  });
+
   const goToCall = (e) => {
     e.preventDefault();
     dispatch("submit", {

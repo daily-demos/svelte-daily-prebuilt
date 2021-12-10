@@ -4,11 +4,13 @@
   import Home from "./screens/Home.svelte";
 
   let currentScreen = "home"; //  || 'call'
-  let url, userName;
+  let url;
+  let userName;
 
   const handleJoinCall = ({ detail }) => {
     currentScreen = "call";
     url = detail.url;
+    localStorage.setItem("svelte-prebuilt-url", url);
     userName = detail.name;
   };
   const handleLeaveCall = () => {

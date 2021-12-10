@@ -50,10 +50,18 @@
       programmatically
     </p>
     <div class="button-container">
-      <button on:click={handleToggleCameraClick}>Toggle camera</button>
-      <button on:click={handleToggleMicClick}>Toggle mic</button>
+      <button on:click={handleToggleCameraClick}
+        >Toggle camera
+        <img src="/images/cam.svg" alt="Camera" /></button
+      >
+      <button on:click={handleToggleMicClick}
+        >Toggle mic <img src="/images/mic.svg" alt="Microphone" /></button
+      >
       <button on:click={handleToggleScreenShareClick}
-        >Toggle screen share</button
+        >Toggle screen share <img
+          src="/images/screen.svg"
+          alt="Screen share"
+        /></button
       >
       <button on:click={handleFullscreenClick}>Expand fullscren</button>
       <button on:click={handleToggleLocalVideoClick}>Hide local video</button>
