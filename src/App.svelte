@@ -9,9 +9,13 @@
 
   const handleJoinCall = ({ detail }) => {
     currentScreen = "call";
+    // set component vars with form submission values
     url = detail.url;
-    localStorage.setItem("svelte-prebuilt-url", url);
     userName = detail.name;
+
+    // save in local storage
+    localStorage.setItem("svelte-prebuilt-url", url);
+    localStorage.setItem("svelte-prebuilt-name", userName);
   };
   const handleLeaveCall = () => {
     currentScreen = "home";

@@ -7,8 +7,12 @@
 
   onMount(() => {
     const storedUrl = localStorage.getItem("svelte-prebuilt-url");
+    const storedName = localStorage.getItem("svelte-prebuilt-name");
     if (storedUrl) {
       url = storedUrl;
+    }
+    if (storedName) {
+      name = storedName;
     }
   });
 
@@ -87,6 +91,7 @@
     font-weight: 600;
     margin-top: 16px;
     border: 1px solid var(--grey);
+    cursor: pointer;
   }
   button {
     background-color: var(--turquoise);
@@ -96,5 +101,6 @@
     padding: 8px 0;
     font-size: 12px;
     font-weight: 600;
+    cursor: pointer;
   }
 </style>
