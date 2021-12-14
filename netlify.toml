@@ -2,7 +2,7 @@
   command = "npm run netlify-build"
 
 [template.environment]
-  VUE_APP_DAILY_API_KEY = "Replace with API key"
+  SVELTE_APP_DAILY_API_KEY = "Replace with API key"
 
 [[redirects]]
   # Proxies the Daily /rooms endpoint, POST will create a room and a GET will return a list 
@@ -14,7 +14,7 @@
   to = "https://api.daily.co/v1/rooms"
   status = 200
   force = true
-  headers = {Authorization = "Bearer VUE_APP_DAILY_API_KEY_PLACEHOLDER"}
+  headers = {Authorization = "Bearer SVELTE_APP_DAILY_API_KEY_PLACEHOLDER"}
 
 [[redirects]]
   from = "/*"

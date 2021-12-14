@@ -5,6 +5,7 @@
 
   export let url;
   export let meetingState;
+  export let stats;
   let copyStatus = "Copy URL";
 
   const handleCopyClick = () => {
@@ -51,6 +52,30 @@
   <input type="text" id="url" disabled value={url} />
   <button class="copy-button" on:click={handleCopyClick}>{copyStatus}</button>
   {#if meetingState === "joined-meeting"}
+    <hr />
+    <h2>Network stats</h2>
+    <div class="stats">
+      <p>
+        <span class="bold">Video sending</span><span
+          >{stats?.videoSending} kb/s</span
+        >
+      </p>
+      <p>
+        <span class="bold">Packet loss send</span><span
+          >{stats?.packetLossSend} kb/s</span
+        >
+      </p>
+      <p>
+        <span class="bold">Video receiving</span><span
+          >{stats?.videoReceiving} kb/s</span
+        >
+      </p>
+      <p>
+        <span class="bold">Packet loss receiving</span><span
+          >{stats?.packetLossReceive} kb/s</span
+        >
+      </p>
+    </div>
     <hr />
     <h2>Example custom controls</h2>
     <p>
@@ -99,6 +124,22 @@
   p {
     font-size: 12px;
     color: var(--dark-blue);
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 28px;
+    grid-row-gap: 20px;
+    padding-right: 1rem;
+  }
+  .stats p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .bold {
+    font-weight: 600;
+    margin-right: 5px;
   }
   input {
     border: none;

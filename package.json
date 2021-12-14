@@ -6,7 +6,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
-    "netlify-build": "sed -i s/VUE_APP_DAILY_API_KEY_PLACEHOLDER/${VUE_APP_DAILY_API_KEY}/g netlify.toml && npm run build"
+    "netlify-build": "sed -i s/SVELTE_APP_DAILY_API_KEY_PLACEHOLDER/${SVELTE_APP_DAILY_API_KEY}/g netlify.toml && npm run build"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",

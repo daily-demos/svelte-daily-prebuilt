@@ -9,6 +9,12 @@
   export let url = "https://jessmitch.daily.co/hey";
   export let userName;
   let meetingState = "idle";
+  let stats = {
+    videoSending: 0,
+    videoReceiving: 0,
+    packetLossSend: 0,
+    packetLossReceive: 0,
+  };
 
   const IFRAME_OPTIONS = {
     height: "auto",
@@ -86,6 +92,17 @@
     callFrame.setShowParticipantsBar(!shown);
   };
 
+  const getNetworkStats = async () => {
+    if (!callFrame) return;
+
+    const stats = await callFrame.getNetworkStats();
+
+    stats.videoSending = stats?.latest?.videoSendBitsPerSecond;
+    stats.videoReceiving = stats?.latest?.videoRecvBitsPerSecond;
+    stats.packetLossSend = stats?.latest?.videoSendPacketLoss;
+    stats.packetLossReceive = stats?.latest?.videoRecvPacketLoss;
+  };
+
   const initializeDaily = async () => {
     if (callFrame) {
       // if it already exists somehow, destroy the old version and reinitialize
@@ -114,6 +131,7 @@
       .join()
       .then((e) => {
         console.log(e);
+        setInterval(() => getNetworkStats(), 5000);
       })
       .catch((e) => console.error("Error joining call: ", e));
   };
@@ -133,6 +151,7 @@
   <Controls
     {url}
     {meetingState}
+    {stats}
     on:toggle-camera={toggleCamera}
     on:toggle-mic={toggleMic}
     on:toggle-screen-share={toggleScreenShare}
