@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher, onMount } from "svelte";
+  import api from "../api";
 
   const dispatch = createEventDispatcher();
 
@@ -23,12 +24,17 @@
       url,
     });
   };
+
+  const createNewRoom = async () => {
+    const res = await api.createRoom();
+    console.log(res);
+  };
 </script>
 
 <div class="home-screen">
   <h2>Daily Prebuilt Svelte demo</h2>
   <p>Start demo with a new unique room or paste in your own room URL</p>
-  <button> Create room and start </button>
+  <button on:click={createNewRoom}> Create room and start </button>
   <p>or</p>
   <form on:submit={goToCall}>
     <label for="name">Name</label>
