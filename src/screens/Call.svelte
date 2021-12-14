@@ -93,14 +93,16 @@
   };
 
   const getNetworkStats = async () => {
+    console.log("getting network stats");
     if (!callFrame) return;
 
-    const stats = await callFrame.getNetworkStats();
+    const newStats = await callFrame.getNetworkStats();
+    console.log("stats", newStats);
 
-    stats.videoSending = stats?.latest?.videoSendBitsPerSecond;
-    stats.videoReceiving = stats?.latest?.videoRecvBitsPerSecond;
-    stats.packetLossSend = stats?.latest?.videoSendPacketLoss;
-    stats.packetLossReceive = stats?.latest?.videoRecvPacketLoss;
+    stats.videoSending = newStats?.latest?.videoSendBitsPerSecond;
+    stats.videoReceiving = newStats?.latest?.videoRecvBitsPerSecond;
+    stats.packetLossSend = newStats?.latest?.videoSendPacketLoss;
+    stats.packetLossReceive = newStats?.latest?.videoRecvPacketLoss;
   };
 
   const initializeDaily = async () => {
@@ -124,20 +126,15 @@
     callFrame.on("joined-meeting", updateMeetingState);
     callFrame.on("left-meeting", handleLeftMeeting);
     callFrame.on("error", updateMeetingState);
-    // callFrame.on("active-speaker-change", updateMeetingState);
-    // callFrame.on("participant-joined", updateMeetingState);
-    // let the local user join the call, which will cause the call to be displayed in our app UI
-    callFrame
-      .join()
-      .then((e) => {
-        console.log(e);
-        setInterval(() => getNetworkStats(), 5000);
-      })
-      .catch((e) => console.error("Error joining call: ", e));
+    // let the local user join the call, which will cause
+    // the call to be displayed in our app UI
+    await callFrame.join();
+    // set up interval for retrieving current network stats
+    setInterval(() => getNetworkStats(), 5000);
   };
 
   onMount(() => {
-    // assume if the Call component is showing, we want to join immediately
+    // assume if the Call component is showing, we should join
     initializeDaily();
   });
 </script>
