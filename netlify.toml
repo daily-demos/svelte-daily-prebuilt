@@ -15,8 +15,3 @@
   status = 200
   force = true
   headers = {Authorization = "Bearer SVELTE_APP_DAILY_API_KEY_PLACEHOLDER"}
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
