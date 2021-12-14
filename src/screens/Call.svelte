@@ -5,9 +5,10 @@
 
   import Controls from "../components/Controls.svelte";
 
-  let callFrame;
   export let url = "https://jessmitch.daily.co/hey";
   export let userName;
+
+  let callFrame;
   let meetingState = "idle";
   let stats = {
     videoSending: 0,
@@ -48,6 +49,7 @@
     const localVideo = callFrame.localVideo();
     callFrame.setLocalVideo(!localVideo);
   };
+
   const toggleMic = () => {
     if (!callFrame) {
       logError("Callframe does not exist.");
@@ -56,6 +58,7 @@
     const localVideo = callFrame.localAudio();
     callFrame.setLocalAudio(!localVideo);
   };
+
   const toggleScreenShare = () => {
     if (!callFrame) {
       logError("Callframe does not exist.");
@@ -68,6 +71,7 @@
       ? callFrame.stopScreenShare()
       : callFrame.startScreenShare();
   };
+
   const goFullscreen = () => {
     if (!callFrame) {
       logError("Callframe does not exist.");
@@ -75,6 +79,7 @@
     }
     callFrame.requestFullscreen();
   };
+
   const toggleLocalVideo = () => {
     if (!callFrame) {
       logError("Callframe does not exist.");
@@ -83,6 +88,7 @@
     const shown = callFrame.showLocalVideo();
     callFrame.setShowLocalVideo(!shown);
   };
+
   const togglRemoteVideo = () => {
     if (!callFrame) {
       logError("Callframe does not exist.");
@@ -99,10 +105,10 @@
     const newStats = await callFrame.getNetworkStats();
     console.log("stats", newStats);
 
-    stats.videoSending = newStats?.latest?.videoSendBitsPerSecond;
-    stats.videoReceiving = newStats?.latest?.videoRecvBitsPerSecond;
-    stats.packetLossSend = newStats?.latest?.videoSendPacketLoss;
-    stats.packetLossReceive = newStats?.latest?.videoRecvPacketLoss;
+    stats.videoSending = newStats?.stats?.latest?.videoSendBitsPerSecond;
+    stats.videoReceiving = newStats?.stats?.latest?.videoRecvBitsPerSecond;
+    stats.packetLossSend = newStats?.stats?.latest?.videoSendPacketLoss;
+    stats.packetLossReceive = newStats?.stats?.latest?.videoRecvPacketLoss;
   };
 
   const initializeDaily = async () => {
@@ -126,11 +132,13 @@
     callFrame.on("joined-meeting", updateMeetingState);
     callFrame.on("left-meeting", handleLeftMeeting);
     callFrame.on("error", updateMeetingState);
+
+    // set up interval for retrieving current network stats
+    setInterval(() => getNetworkStats(), 5000);
+
     // let the local user join the call, which will cause
     // the call to be displayed in our app UI
     await callFrame.join();
-    // set up interval for retrieving current network stats
-    setInterval(() => getNetworkStats(), 5000);
   };
 
   onMount(() => {

@@ -57,22 +57,22 @@
     <div class="stats">
       <p>
         <span class="bold">Video sending</span><span
-          >{stats?.videoSending} kb/s</span
+          >{stats?.videoSending || "0"} kb/s</span
         >
       </p>
       <p>
         <span class="bold">Packet loss send</span><span
-          >{stats?.packetLossSend} kb/s</span
+          >{stats?.packetLossSend || "0"} kb/s</span
         >
       </p>
       <p>
         <span class="bold">Video receiving</span><span
-          >{stats?.videoReceiving} kb/s</span
+          >{stats?.videoReceiving || "0"} kb/s</span
         >
       </p>
       <p>
         <span class="bold">Packet loss receiving</span><span
-          >{stats?.packetLossReceive} kb/s</span
+          >{stats?.packetLossReceive || "0"} kb/s</span
         >
       </p>
     </div>
