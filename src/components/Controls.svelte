@@ -17,6 +17,11 @@
     }, 3000);
   };
 
+  /**
+   * Button click events.
+   * Each button triggers a unique event that
+   * the Call component listens for.
+   */
   const handleToggleCameraClick = () => {
     dispatch("toggle-camera");
   };
@@ -35,6 +40,10 @@
   const handleToggleRemoteVideoClick = () => {
     dispatch("toggle-remote-video");
   };
+  /**
+   * End of button click events
+   */
+
   const formatStats = (value) => {
     return value ? value.toFixed(1) : "0";
   };
