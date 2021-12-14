@@ -40,7 +40,10 @@
       error = "Room could not be created.";
     }
   };
+
+  // only allow create room button on deployed sites
   const disableCreateRoom = () => {
+    console.log(window.location.origin);
     return window.location.origin === "http://localhost:5000/";
   };
 </script>
@@ -131,6 +134,7 @@
   button:disabled {
     background-color: var(--grey);
     color: var(--dark-grey);
+    cursor: not-allowed;
   }
   .error {
     color: var(--red-dark);
