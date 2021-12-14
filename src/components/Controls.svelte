@@ -116,7 +116,8 @@
 <style>
   .controls-container {
     flex: 1;
-    padding: 1rem;
+    padding: 1rem 2rem 1rem 1rem;
+    max-width: calc(1004px - 4rem);
   }
   .controls-container.prejoin {
     align-self: center;

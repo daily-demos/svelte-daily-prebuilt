@@ -181,8 +181,15 @@
   }
   #container {
     flex: 1.5;
-    padding: 1rem;
+    padding: 1rem 2rem 1rem 1rem;
     display: flex;
     justify-content: center;
+  }
+
+  @media only screen and (max-width: 1004px) {
+    .call-screen {
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 </style>
