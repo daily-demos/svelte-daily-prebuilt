@@ -40,12 +40,17 @@
       error = "Room could not be created.";
     }
   };
+  const disableCreateRoom = () => {
+    return window.location.origin === "http://localhost:5000/";
+  };
 </script>
 
 <div class="home-screen">
   <h2>Daily Prebuilt Svelte demo</h2>
   <p>Start demo with a new unique room or paste in your own room URL</p>
-  <button on:click={createNewRoom}> Create room and start </button>
+  <button on:click={createNewRoom} disabled={disableCreateRoom}>
+    Create room and start
+  </button>
   {#if error}
     <p class="error">{error}</p>
   {/if}
@@ -122,6 +127,10 @@
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
+  }
+  button:disabled {
+    background-color: var(--grey);
+    color: var(--dark-grey);
   }
   .error {
     color: var(--red-dark);
