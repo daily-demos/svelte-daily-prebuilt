@@ -87,6 +87,12 @@
   };
 
   const initializeDaily = async () => {
+    if (callFrame) {
+      // if it already exists somehow, destroy the old version and reinitialize
+      callFrame.destroy();
+      callFrame = null;
+      initializeDaily();
+    }
     // select container element to embed Daily iframe in
     const container = document.getElementById("container");
     // create Daily iframe
