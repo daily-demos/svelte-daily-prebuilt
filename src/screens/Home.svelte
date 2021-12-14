@@ -33,7 +33,7 @@
     if (res?.url) {
       url = res.url;
       dispatch("submit", {
-        name: null,
+        name: "",
         url,
       });
     } else {
