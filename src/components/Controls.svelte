@@ -35,6 +35,9 @@
   const handleToggleRemoteVideoClick = () => {
     dispatch("toggle-remote-video");
   };
+  const formatStats = (value) => {
+    return value ? value.toFixed(1) : "0";
+  };
 </script>
 
 <div
@@ -57,22 +60,22 @@
     <div class="stats">
       <p>
         <span class="bold">Video sending</span><span
-          >{stats?.videoSending || "0"} kb/s</span
+          >{formatStats(stats?.videoSending)} kb/s</span
         >
       </p>
       <p>
         <span class="bold">Packet loss send</span><span
-          >{stats?.packetLossSend || "0"} kb/s</span
+          >{formatStats(stats?.packetLossSend)} kb/s</span
         >
       </p>
       <p>
         <span class="bold">Video receiving</span><span
-          >{stats?.videoReceiving || "0"} kb/s</span
+          >{formatStats(stats?.videoReceiving)} kb/s</span
         >
       </p>
       <p>
         <span class="bold">Packet loss receiving</span><span
-          >{stats?.packetLossReceive || "0"} kb/s</span
+          >{formatStats(stats?.packetLossReceive)} kb/s</span
         >
       </p>
     </div>
