@@ -4,7 +4,9 @@
 
   const dispatch = createEventDispatcher();
 
-  let name, url;
+  let name,
+    url,
+    error = null;
 
   onMount(() => {
     const storedUrl = localStorage.getItem("svelte-prebuilt-url");
@@ -26,8 +28,17 @@
   };
 
   const createNewRoom = async () => {
+    error = null;
     const res = await api.createRoom();
-    console.log(res);
+    if (res?.url) {
+      url = res.url;
+      dispatch("submit", {
+        name: null,
+        url,
+      });
+    } else {
+      error = "Room could not be created.";
+    }
   };
 </script>
 
@@ -35,6 +46,9 @@
   <h2>Daily Prebuilt Svelte demo</h2>
   <p>Start demo with a new unique room or paste in your own room URL</p>
   <button on:click={createNewRoom}> Create room and start </button>
+  {#if error}
+    <p class="error">{error}</p>
+  {/if}
   <p>or</p>
   <form on:submit={goToCall}>
     <label for="name">Name</label>
@@ -108,5 +122,8 @@
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
+  }
+  .error {
+    color: var(--red-dark);
   }
 </style>
