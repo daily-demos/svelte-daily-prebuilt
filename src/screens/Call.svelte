@@ -8,6 +8,7 @@
   export let url = "https://jessmitch.daily.co/hey";
   export let userName;
 
+  let interval;
   let callFrame;
   let meetingState = "idle";
   let stats = {
@@ -38,6 +39,7 @@
 
   const handleLeftMeeting = (e) => {
     updateMeetingState(e);
+    if (interval) clearInterval(interval);
     dispatch("left");
   };
 
@@ -134,7 +136,7 @@
     callFrame.on("error", updateMeetingState);
 
     // set up interval for retrieving current network stats
-    setInterval(() => getNetworkStats(), 5000);
+    interval = setInterval(() => getNetworkStats(), 5000);
 
     // let the local user join the call, which will cause
     // the call to be displayed in our app UI
