@@ -3,6 +3,7 @@
   import api from "../api";
 
   const dispatch = createEventDispatcher();
+  let disabled = false;
 
   let name,
     url,
@@ -17,6 +18,8 @@
     if (storedName) {
       name = storedName;
     }
+    // only use the create room button on deployed sites
+    disabled = window.location.origin === "http://localhost:5000";
   });
 
   const goToCall = (e) => {
@@ -40,20 +43,12 @@
       error = "Room could not be created.";
     }
   };
-
-  // only allow create room button on deployed sites
-  const disableCreateRoom = () => {
-    console.log(window.location.origin);
-    return window.location.origin === "http://localhost:5000/";
-  };
 </script>
 
 <div class="home-screen">
   <h2>Daily Prebuilt Svelte demo</h2>
   <p>Start demo with a new unique room or paste in your own room URL</p>
-  <button on:click={createNewRoom} disabled={disableCreateRoom}>
-    Create room and start
-  </button>
+  <button on:click={createNewRoom} {disabled}> Create room and start </button>
   {#if error}
     <p class="error">{error}</p>
   {/if}
