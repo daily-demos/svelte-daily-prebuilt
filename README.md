@@ -40,4 +40,4 @@ If you want access to the Daily REST API (using the proxy as specified in `netli
 4. Rename `example.env` to `.env` and add your API key
 5. Start the dev server `netlify dev`
 
-> Note: If the API proxy isn't working locally you may need to run `netlify build` first. This will put API key in the `netlify.toml` file, so make sure you don't commit this change.
+> Note: If the API proxy isn't working locally you may need to run `npm run netlify build` first. This will put API key in the `netlify.toml` file, so make sure you don't commit this change.

@@ -45,7 +45,7 @@
    */
 
   const formatStats = (value) => {
-    return value ? value.toFixed(1) : "0";
+    return `${value ? value.toFixed(1) : "0"} b/s`;
   };
 </script>
 
@@ -69,22 +69,22 @@
     <div class="stats">
       <p>
         <span class="bold">Video sending</span><span
-          >{formatStats(stats?.videoSending)} kb/s</span
+          >{formatStats(stats?.videoSending)}</span
         >
       </p>
       <p>
         <span class="bold">Packet loss send</span><span
-          >{formatStats(stats?.packetLossSend)} kb/s</span
+          >{formatStats(stats?.packetLossSend)}</span
         >
       </p>
       <p>
         <span class="bold">Video receiving</span><span
-          >{formatStats(stats?.videoReceiving)} kb/s</span
+          >{formatStats(stats?.videoReceiving)}</span
         >
       </p>
       <p>
         <span class="bold">Packet loss receiving</span><span
-          >{formatStats(stats?.packetLossReceive)} kb/s</span
+          >{formatStats(stats?.packetLossReceive)}</span
         >
       </p>
     </div>

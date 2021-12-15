@@ -5,9 +5,10 @@
 
   import Controls from "../components/Controls.svelte";
 
-  export let url = "https://jessmitch.daily.co/hey";
+  export let url;
   export let userName;
 
+  const noCallFrameError = "Callframe does not exist.";
   let interval;
   let callFrame;
   let meetingState = "idle";
@@ -45,7 +46,7 @@
 
   const toggleCamera = () => {
     if (!callFrame) {
-      logError("Callframe does not exist.");
+      logError(noCallFrameError);
       return;
     }
     const localVideo = callFrame.localVideo();
@@ -54,7 +55,7 @@
 
   const toggleMic = () => {
     if (!callFrame) {
-      logError("Callframe does not exist.");
+      logError(noCallFrameError);
       return;
     }
     const localVideo = callFrame.localAudio();
@@ -63,7 +64,7 @@
 
   const toggleScreenShare = () => {
     if (!callFrame) {
-      logError("Callframe does not exist.");
+      logError(noCallFrameError);
       return;
     }
     const participants = callFrame.participants();
@@ -76,7 +77,7 @@
 
   const goFullscreen = () => {
     if (!callFrame) {
-      logError("Callframe does not exist.");
+      logError(noCallFrameError);
       return;
     }
     callFrame.requestFullscreen();
@@ -84,7 +85,7 @@
 
   const toggleLocalVideo = () => {
     if (!callFrame) {
-      logError("Callframe does not exist.");
+      logError(noCallFrameError);
       return;
     }
     const shown = callFrame.showLocalVideo();
@@ -93,7 +94,7 @@
 
   const toggleRemoteVideo = () => {
     if (!callFrame) {
-      logError("Callframe does not exist.");
+      logError(noCallFrameError);
       return;
     }
     const shown = callFrame.showParticipantsBar();
@@ -105,12 +106,14 @@
     if (!callFrame) return;
 
     const newStats = await callFrame.getNetworkStats();
-    console.log("stats", newStats);
+    const { latest } = newStats?.stats;
 
-    stats.videoSending = newStats?.stats?.latest?.videoSendBitsPerSecond;
-    stats.videoReceiving = newStats?.stats?.latest?.videoRecvBitsPerSecond;
-    stats.packetLossSend = newStats?.stats?.latest?.videoSendPacketLoss;
-    stats.packetLossReceive = newStats?.stats?.latest?.videoRecvPacketLoss;
+    if (!latest) return;
+
+    stats.videoSending = latest?.videoSendBitsPerSecond;
+    stats.videoReceiving = latest?.videoRecvBitsPerSecond;
+    stats.packetLossSend = latest?.videoSendPacketLoss;
+    stats.packetLossReceive = latest?.videoRecvPacketLoss;
   };
 
   const initializeDaily = async () => {

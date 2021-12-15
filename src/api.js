@@ -16,7 +16,7 @@ async function createRoom() {
     // TODO: uncomment the headers below if you are using the "Create and join room" button locally.
     // headers: {
     //   "Content-Type": "application/json",
-    //   Authorization: "Bearer " + process.env.VUE_APP_DAILY_API_KEY;,
+    //   Authorization: "Bearer " + process.env.SVELTE_APP_DAILY_API_KEY;,
     // },
   });
   const room = await response.json();
