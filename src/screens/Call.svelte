@@ -68,7 +68,7 @@
     }
     const participants = callFrame.participants();
     // stop the screen share if they're currently sharing
-    // otherwise, start the start share
+    // otherwise, start the screen share
     participants?.local?.screen
       ? callFrame.stopScreenShare()
       : callFrame.startScreenShare();
