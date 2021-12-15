@@ -5,6 +5,8 @@ This is a demo of a [Svelte app](https://svelte.dev/) using Daily's embeddable [
 <img src="./svelte-home.png" alt="home screen">
 <img src="./svelte-call.png" alt="call screen">
 
+Test a deployed version of this app at [https://svelte-daily-prebuilt.netlify.app/](https://svelte-daily-prebuilt.netlify.app/).
+
 ---
 
 ## Requirements
@@ -25,19 +27,10 @@ To run this demo locally:
 
 OR...
 
-## Running using Netlify CLI
+## Deploy on Netlify
 
-If you want access to the Daily REST API (using the proxy as specified in `netlify.toml`) as well as a more robust local dev environment, please do the following in this project's directory:
+If you want access to the Daily REST API (using the proxy as specified in `netlify.toml`), you can deploy your own copy of this repo with one click via Netlify:
 
-1. Deploy to your Netlify account
+[![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/daily-demos/svelte-daily-prebuilt)
 
-   [![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/daily-demos/svelte-daily-prebuilt)
-
-   Note: You'll need your [Daily API key](https://dashboard.daily.co/developers) handy for this step.
-
-2. Install the Netlify CLI `npm i -g netlify-cli`
-3. Login to your account `netlify login`
-4. Rename `example.env` to `.env` and add your API key
-5. Start the dev server `netlify dev`
-
-> Note: If the API proxy isn't working locally you may need to run `npm run netlify build` first. This will put API key in the `netlify.toml` file, so make sure you don't commit this change.
+Note: You'll need your [Daily API key](https://dashboard.daily.co/developers) handy for this step.
