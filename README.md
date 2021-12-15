@@ -25,6 +25,8 @@ To run this demo locally:
 2. Start dev server `npm run dev`
 3. Then open your browser and go to http://localhost:5000
 
+_❗Note: Make sure you're viewing http://localhost:5000, not http://0.0.0.0:5000._
+
 OR...
 
 ## Deploy on Netlify
