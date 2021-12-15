@@ -164,7 +164,7 @@
     on:toggle-screen-share={toggleScreenShare}
     on:fullscreen={goFullscreen}
     on:toggle-local-video={toggleLocalVideo}
-    on:toggle-remote-video={togglRemoteVideo}
+    on:toggle-remote-video={toggleRemoteVideo}
   />
 </div>
 
