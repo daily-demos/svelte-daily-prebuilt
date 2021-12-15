@@ -91,7 +91,7 @@
     callFrame.setShowLocalVideo(!shown);
   };
 
-  const togglRemoteVideo = () => {
+  const toggleRemoteVideo = () => {
     if (!callFrame) {
       logError("Callframe does not exist.");
       return;
