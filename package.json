@@ -6,7 +6,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
-    "netlify-build": "dotenv -- bash -c 'perl -p -i -e \"s/SVELTE_APP_DAILY_API_KEY_PLACEHOLDER/$SVELTE_APP_DAILY_API_KEY/g\" netlify.toml' && npm run build"
+    "netlify-build": "sed -i.bak s/SVELTE_APP_DAILY_API_KEY_PLACEHOLDER/${SVELTE_APP_DAILY_API_KEY}/g netlify.toml && npm run build"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
@@ -19,7 +19,6 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
-    "dotenv-cli": "^4.1.1",
     "sirv-cli": "^1.0.0"
   }
 }
