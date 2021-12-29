@@ -7,7 +7,6 @@
 
   export let url;
   export let userName;
-  export let error;
 
   const noCallFrameError = "Callframe does not exist.";
   let interval;
@@ -74,7 +73,9 @@
       logError(noCallFrameError);
       return;
     }
+
     const participants = callFrame.participants();
+
     // stop the screen share if they're currently sharing
     // otherwise, start the screen share
     participants?.local?.screen
