@@ -36,9 +36,9 @@
 <style>
   .wrapper {
     background-color: var(--grey-lightest);
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-x: hidden;
   }
 </style>

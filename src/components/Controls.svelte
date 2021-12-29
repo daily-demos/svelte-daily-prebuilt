@@ -55,71 +55,80 @@
     : "controls-container"}
 >
   {#if meetingState === "joined-meeting"}
-    <h2>Call Overview</h2>
-    <hr />
+    <div class="overview">
+      <h2>Call Overview</h2>
+      <hr />
+    </div>
   {/if}
   <h2>Invite Participants</h2>
   <p>Share URL below to invite others</p>
-  <label for="url" />
-  <input type="text" id="url" disabled value={url} />
-  <button class="copy-button" on:click={handleCopyClick}>{copyStatus}</button>
+  <div class="copy-container">
+    <label for="url" />
+    <input type="text" id="url" disabled value={url} />
+    <button class="copy-button" on:click={handleCopyClick}>{copyStatus}</button>
+  </div>
   {#if meetingState === "joined-meeting"}
     <hr />
-    <h2>Network stats</h2>
-    <div class="stats">
-      <p>
-        <span class="bold">Video sending</span><span
-          >{formatStats(stats?.videoSending)}</span
-        >
-      </p>
-      <p>
-        <span class="bold">Packet loss send</span><span
-          >{formatStats(stats?.packetLossSend)}</span
-        >
-      </p>
-      <p>
-        <span class="bold">Video receiving</span><span
-          >{formatStats(stats?.videoReceiving)}</span
-        >
-      </p>
-      <p>
-        <span class="bold">Packet loss receiving</span><span
-          >{formatStats(stats?.packetLossReceive)}</span
-        >
-      </p>
+    <div>
+      <h2>Network stats</h2>
+      <div class="stats">
+        <p>
+          <span class="bold">Video sending</span><span
+            >{formatStats(stats?.videoSending)}</span
+          >
+        </p>
+        <p>
+          <span class="bold">Packet loss send</span><span
+            >{formatStats(stats?.packetLossSend)}</span
+          >
+        </p>
+        <p>
+          <span class="bold">Video receiving</span><span
+            >{formatStats(stats?.videoReceiving)}</span
+          >
+        </p>
+        <p>
+          <span class="bold">Packet loss receiving</span><span
+            >{formatStats(stats?.packetLossReceive)}</span
+          >
+        </p>
+      </div>
     </div>
     <hr />
-    <h2>Example custom controls</h2>
-    <p>
-      Using daily-js, you can customize your own controls to update your calls
-      programmatically
-    </p>
-    <div class="button-container">
-      <button on:click={handleToggleCameraClick}
-        ><span
-          >Toggle camera
-          <img src="/images/cam.svg" alt="Camera" /></span
-        ></button
-      >
-      <button on:click={handleToggleMicClick}>
-        <span>
-          Toggle mic
-          <img src="/images/mic.svg" alt="Microphone" />
-        </span>
-      </button>
-      <button on:click={handleToggleScreenShareClick}
-        ><span
-          >Toggle screen share <img
-            src="/images/screen.svg"
-            alt="Screen share"
-          /></span
-        ></button
-      >
-      <button on:click={handleFullscreenClick}>Expand fullscreen</button>
-      <button on:click={handleToggleLocalVideoClick}>Hide local video</button>
-      <button on:click={handleToggleRemoteVideoClick}
-        >Hide remote participants (speaker view only)</button
-      >
+    <div class="customer-controls">
+      <h2>Example custom controls</h2>
+      <p>
+        Using daily-js, you can customize your own controls to update your calls
+        programmatically
+      </p>
+      <div class="button-container">
+        <button on:click={handleToggleCameraClick}
+          ><span
+            >Toggle camera
+            <img src="/images/cam.svg" alt="Camera" /></span
+          ></button
+        >
+        <button on:click={handleToggleMicClick}>
+          <span>
+            Toggle mic
+            <img src="/images/mic.svg" alt="Microphone" />
+          </span>
+        </button>
+        <button on:click={handleToggleScreenShareClick}
+          ><span
+            >Toggle screen share <img
+              src="/images/screen.svg"
+              alt="Screen share"
+            /></span
+          ></button
+        >
+        <button on:click={handleFullscreenClick}>Expand fullscreen</button>
+        <button on:click={handleToggleLocalVideoClick}>Hide local video</button>
+        <button on:click={handleToggleRemoteVideoClick}
+          >Hide remote participants (speaker view only)</button
+        >
+      </div>
+      <hr />
     </div>
   {/if}
 </div>
@@ -129,6 +138,8 @@
     flex: 1;
     padding: 1rem 2rem 1rem 1rem;
     max-width: calc(1004px - 4rem);
+    display: flex;
+    flex-direction: column;
   }
   .controls-container.prejoin {
     align-self: center;
@@ -164,6 +175,11 @@
     padding: 8px;
     width: calc(280px - 16px); /* subtract extra input padding from width */
     border: 1px solid var(--grey);
+    margin-right: 8px;
+  }
+  .copy-container {
+    display: flex;
+    flex-wrap: wrap;
   }
   button.copy-button {
     background-color: var(--turquoise);
@@ -195,5 +211,17 @@
   hr {
     border: 1px solid var(--grey);
     margin: 24px 0;
+  }
+
+  @media only screen and (max-width: 1004px) {
+    .customer-controls {
+      order: -1;
+    }
+    hr:last-child {
+      display: block;
+    }
+    .overview {
+      display: none;
+    }
   }
 </style>
