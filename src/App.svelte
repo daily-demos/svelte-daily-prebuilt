@@ -17,9 +17,7 @@
     localStorage.setItem("svelte-prebuilt-url", url);
     localStorage.setItem("svelte-prebuilt-name", userName);
   };
-  const handleLeaveCall = () => {
-    currentScreen = "home";
-  };
+  const handleLeaveCall = () => (currentScreen = "home");
 </script>
 
 <svelte:head>

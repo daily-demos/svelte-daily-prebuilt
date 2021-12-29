@@ -101,10 +101,12 @@
           <img src="/images/cam.svg" alt="Camera" /></span
         ></button
       >
-      <button on:click={handleToggleMicClick}
-        ><span>Toggle mic <img src="/images/mic.svg" alt="Microphone" /></span
-        ></button
-      >
+      <button on:click={handleToggleMicClick}>
+        <span>
+          Toggle mic
+          <img src="/images/mic.svg" alt="Microphone" />
+        </span>
+      </button>
       <button on:click={handleToggleScreenShareClick}
         ><span
           >Toggle screen share <img
@@ -113,7 +115,7 @@
           /></span
         ></button
       >
-      <button on:click={handleFullscreenClick}>Expand fullscren</button>
+      <button on:click={handleFullscreenClick}>Expand fullscreen</button>
       <button on:click={handleToggleLocalVideoClick}>Hide local video</button>
       <button on:click={handleToggleRemoteVideoClick}
         >Hide remote participants (speaker view only)</button

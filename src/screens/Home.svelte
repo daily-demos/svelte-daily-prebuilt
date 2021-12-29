@@ -3,11 +3,12 @@
   import api from "../api";
 
   const dispatch = createEventDispatcher();
-  let disabled = false;
 
+  let disabled = false;
   let name,
     url,
     error = null;
+  const hasLocalKey = process.env.SVELTE_APP_DAILY_API_KEY;
 
   onMount(() => {
     const storedUrl = localStorage.getItem("svelte-prebuilt-url");
@@ -18,8 +19,10 @@
     if (storedName) {
       name = storedName;
     }
+    console.log(process);
     // only use the create room button on deployed sites
-    disabled = window.location.origin === "http://localhost:5000";
+    disabled =
+      window.location.origin === "http://localhost:5000" && !hasLocalKey;
   });
 
   const goToCall = (e) => {
@@ -33,6 +36,7 @@
   const createNewRoom = async () => {
     error = null;
     const res = await api.createRoom();
+
     if (res?.url) {
       url = res.url;
       dispatch("submit", {
@@ -40,7 +44,8 @@
         url,
       });
     } else {
-      error = "Room could not be created.";
+      console.error(res);
+      error = "Room could not be created. Please check your local config.";
     }
   };
 </script>

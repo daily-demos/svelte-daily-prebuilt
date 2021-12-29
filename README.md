@@ -27,6 +27,20 @@ To run this demo locally:
 
 _❗Note: Make sure you're viewing http://localhost:5000, not http://0.0.0.0:5000._
 
+### Creating new rooms locally
+
+To create rooms new rooms via the app UI while testing locally, follow the these additional steps:
+
+- rename `env.example` to `.env`
+- add your Daily API key (available in the Daily [dashboard](https://dashboard.daily.co/developers)) to `.env`
+
+```
+SVELTE_APP_DAILY_API_KEY=<-Your Daily API key here->
+```
+
+- In `api.js`, comment out the default request and uncomment the local request.
+- Restart your server, i.e. re-run `npm run dev`
+
 OR...
 
 ## Deploy on Netlify
@@ -36,3 +50,5 @@ If you want access to the Daily REST API (using the proxy as specified in `netli
 [![Deploy with Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/daily-demos/svelte-daily-prebuilt)
 
 Note: You'll need your [Daily API key](https://dashboard.daily.co/developers) handy for this step.
+
+Visit the deployed domain provided by Netlify after completing this step to view the app.
