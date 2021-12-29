@@ -4,6 +4,7 @@
   import Home from "./screens/Home.svelte";
 
   let currentScreen = "home"; //  || 'call'
+  let error = null;
   let url;
   let userName;
 
@@ -16,7 +17,10 @@
     // save in local storage
     localStorage.setItem("svelte-prebuilt-url", url);
     localStorage.setItem("svelte-prebuilt-name", userName);
+
+    error = null;
   };
+  const handleCallError = ({ detail }) => (error = detail?.error);
   const handleLeaveCall = () => (currentScreen = "home");
 </script>
 
@@ -27,9 +31,14 @@
 <div class="wrapper">
   <Header />
   {#if currentScreen === "home"}
-    <Home on:submit={handleJoinCall} />
+    <Home on:submit={handleJoinCall} {error} />
   {:else}
-    <Call {userName} {url} on:left={handleLeaveCall} />
+    <Call
+      {userName}
+      {url}
+      on:left={handleLeaveCall}
+      on:error={handleCallError}
+    />
   {/if}
 </div>
 

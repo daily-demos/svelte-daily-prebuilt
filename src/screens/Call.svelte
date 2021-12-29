@@ -7,6 +7,7 @@
 
   export let url;
   export let userName;
+  export let error;
 
   const noCallFrameError = "Callframe does not exist.";
   let interval;
@@ -34,7 +35,6 @@
   };
 
   const updateMeetingState = (e) => {
-    console.log(e);
     meetingState = e.action;
   };
 
@@ -42,6 +42,13 @@
     updateMeetingState(e);
     if (interval) clearInterval(interval);
     dispatch("left");
+  };
+
+  const handleError = (e) => {
+    updateMeetingState(e);
+    if (e.errorMsg) {
+      dispatch("error", { error: e.errorMsg });
+    }
   };
 
   const toggleCamera = () => {
@@ -136,7 +143,7 @@
     callFrame.on("joining-meeting", updateMeetingState);
     callFrame.on("joined-meeting", updateMeetingState);
     callFrame.on("left-meeting", handleLeftMeeting);
-    callFrame.on("error", updateMeetingState);
+    callFrame.on("error", handleError);
 
     // set up interval for retrieving current network stats
     interval = setInterval(() => getNetworkStats(), 5000);
