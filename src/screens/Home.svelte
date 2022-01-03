@@ -10,8 +10,8 @@
   const hasLocalKey = process.env.SVELTE_APP_DAILY_API_KEY;
 
   onMount(() => {
-    const storedUrl = localStorage.getItem("svelte-prebuilt-url");
-    const storedName = localStorage.getItem("svelte-prebuilt-name");
+    const storedUrl = localStorage?.getItem("svelte-prebuilt-url");
+    const storedName = localStorage?.getItem("svelte-prebuilt-name");
     if (storedUrl) {
       url = storedUrl;
     }
@@ -75,7 +75,6 @@
 <style>
   .home-screen {
     padding: 0 1rem;
-    width: 100%;
     max-width: 600px;
     display: flex;
     flex-direction: column;
@@ -86,10 +85,13 @@
   h2 {
     font-size: 32px;
     margin: 0;
+    text-align: center;
   }
   p {
     font-size: 16px;
     margin: 16px;
+    text-align: center;
+    
   }
   label {
     display: block;

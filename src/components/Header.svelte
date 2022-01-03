@@ -46,6 +46,7 @@
     display: flex;
     align-items: center;
     padding: 8px 16px;
+    color: var(--dark-blue);
   }
   a.new-tab-link {
     border: 1px solid var(--dark-grey);

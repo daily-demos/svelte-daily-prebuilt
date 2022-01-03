@@ -208,6 +208,9 @@
     align-items: center;
     margin-left: 4px;
   }
+  button:not(.copy-button):active {
+    background-color: var(--grey);
+  }
   hr {
     border: 1px solid var(--grey);
     margin: 24px 0;

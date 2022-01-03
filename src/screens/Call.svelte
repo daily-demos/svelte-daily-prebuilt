@@ -1,5 +1,5 @@
 <script>
-  import { onMount, createEventDispatcher } from "svelte";
+  import { onMount, createEventDispatcher, onDestroy } from "svelte";
 
   const dispatch = createEventDispatcher();
 
@@ -69,6 +69,13 @@
   };
 
   const toggleScreenShare = () => {
+    /**
+     * Note: Screen sharing on Firefox has a known bug if
+     * no Daily Prebuilt user interaction has happened yet.
+     * (e.g. if the user tries to screen share with the custom
+     * button before clicking anything in the Daily Prebuilt UI.)
+     * A fix is on its way! :)
+     */
     if (!callFrame) {
       logError(noCallFrameError);
       return;
@@ -154,9 +161,28 @@
     await callFrame.join();
   };
 
-  onMount(() => {
+  /**
+   * Called when this component first mounts
+   */
+  onMount(async () => {
     // assume if the Call component is showing, we should join
-    initializeDaily();
+    await initializeDaily();
+  });
+
+  /**
+   * Called when this component is destroyed (when we return to the home screen).
+   */
+  onDestroy(() => {
+    if (callFrame) {
+      // remove event listeners
+      callFrame.off("joining-meeting", updateMeetingState);
+      callFrame.off("joined-meeting", updateMeetingState);
+      callFrame.off("left-meeting", handleLeftMeeting);
+      callFrame.off("error", handleError);
+
+      // destroy Daily callframe after call ends
+      callFrame.destroy();
+    }
   });
 </script>
 

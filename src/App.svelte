@@ -15,8 +15,8 @@
     userName = detail.name;
 
     // save in local storage
-    localStorage.setItem("svelte-prebuilt-url", url);
-    localStorage.setItem("svelte-prebuilt-name", userName);
+    localStorage?.setItem("svelte-prebuilt-url", url);
+    localStorage?.setItem("svelte-prebuilt-name", userName);
 
     error = null;
   };
